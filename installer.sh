@@ -28,7 +28,7 @@ print_banner() {
     echo "║                                                                               ║"
     echo "║  🧼 Automatically detect and clean unused Flutter assets & constants          ║"
     echo "║  🔍 Smart detection of Assets classes and asset directories                   ║"
-    echo "║  🛡️  Safe cleanup with backups and confirmations                              ║"
+    echo "║  🛡️  Safe cleanup with backups and confirmations                               ║"
     echo "╚═══════════════════════════════════════════════════════════════════════════════╝"
     echo -e "${NC}"
 }
