@@ -31,7 +31,7 @@ print_banner() {
     echo "║                    🧼 Flutter Assets Cleanup Tool v1.0.0                     ║"
     echo "║                                                                              ║"
     echo "║  🔍 Smart detection of unused assets and constants                           ║"
-    echo "║  🛡️  Safe cleanup with interactive confirmations                             ║"
+    echo "║  🛡️  Safe cleanup with interactive confirmations                              ║"
     echo "║  ⚡ Boost your Flutter app performance & reduce bundle size                  ║"
     echo "╚══════════════════════════════════════════════════════════════════════════════╝"
     echo -e "${NC}"
@@ -126,7 +126,7 @@ detect_assets_file() {
     done
     
     echo ""
-    read -t 1 -n 10000 discard 
+    clear_input_buffer 
     read -p "📝 Enter the number (1-${#potential_files[@]}) or 's' to skip constants cleanup: " choice
     
     if [[ "$choice" == "s" || "$choice" == "S" ]]; then
@@ -198,7 +198,7 @@ cleanup_unused_constants() {
         confirm_delete=true
         log_info "Auto-confirming deletion of unused constants (--auto-confirm flag)"
     else
-        read -t 1 -n 10000 discard 
+        clear_input_buffer 
         read -p "❓ Do you want to delete these unused constants? (y/N): " -n 1 -r
         
         echo ""
@@ -324,7 +324,7 @@ cleanup_unused_files() {
         confirm_delete=true
         log_info "Auto-confirming deletion of unused files (--auto-confirm flag)"
     else
-        read -t 1 -n 10000 discard 
+        clear_input_buffer 
         read -p "🗑️  Do you want to delete these unused files? (y/N): " confirm
         if [[ "$confirm" == "y" || "$confirm" == "Y" ]]; then
             confirm_delete=true
@@ -350,9 +350,6 @@ cleanup_unused_files() {
 
 # Show help message
 show_help() {
-    echo -e "${CYAN}Flutter Assets Cleanup Tool v1.0.0${NC}"
-    echo -e "${CYAN}═══════════════════════════════════${NC}"
-    echo ""
     echo -e "${YELLOW}USAGE:${NC}"
     echo -e "  ${GREEN}flutter-assets-cleaner${NC} [OPTIONS]"
     echo ""
@@ -544,6 +541,10 @@ main() {
     echo -e "${CYAN}✨ Your Flutter project is now cleaner and more optimized!${NC}"
     echo -e "${YELLOW}💡 TIP:${NC} Run this tool regularly to maintain a clean codebase."
 }
-
+clear_input_buffer() {
+    while read -r -s -t 1 -n 1000 discard 2>/dev/null; do
+        continue
+    done
+}
 # Run the main function with all arguments
 main "$@"
